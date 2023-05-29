@@ -1,0 +1,96 @@
+Sub enviar_wpp()
+
+Dim texto1 As String
+Dim texto2 As String
+Dim texto3 As String
+Dim custo As Currency
+Dim contato As String
+Dim contato2 As String
+Dim URL As String
+
+' test if the cells value is empty. If so, the application doesn't do nothing.
+
+    If Range("M15").Value = "0" Then
+
+         MsgBox "Total das unidades está vazia. Digite a Classificação", 64, "Tekimobile"
+
+         Exit Sub
+    
+    Else
+    
+' open web whattsapp
+
+    URL = "https://web.whatsapp.com"
+
+    ActiveWorkbook.FollowHyperlink URL
+
+' send a printscreen from Range L3:P18 with cells M3 and M4 texts to the cell L2 previously informed contact.
+
+    Application.Wait (Now + TimeValue("00:00:04"))
+    contato = Range("L2").Value
+    texto1 = "Classificação Lote " & Range("M4").Value & " - " & Range("M3").Value
+    Range("L3:P18").Copy
+
+    Application.Wait (Now + TimeValue("00:00:01"))
+    Application.Wait (Now + TimeValue("00:00:02"))
+    Call SendKeys("{TAB}")
+    Application.Wait (Now + TimeValue("00:00:01"))
+    Call SendKeys("{TAB}")
+    Application.Wait (Now + TimeValue("00:00:01"))
+    Call SendKeys("{TAB}")
+    Application.Wait (Now + TimeValue("00:00:01"))
+    Call SendKeys("{TAB}")
+    Application.Wait (Now + TimeValue("00:00:01"))
+    Call SendKeys(contato, True)
+    Application.Wait (Now + TimeValue("00:00:01"))
+    Call SendKeys("{ENTER}", True)
+    Application.Wait (Now + TimeValue("00:00:01"))
+    Call SendKeys(texto1, True)
+    Call SendKeys("^v", True)
+    Application.Wait (Now + TimeValue("00:00:01"))
+    Call SendKeys("{ENTER}", True)
+    Application.CutCopyMode = False
+
+' send a printscreen from Range L32:X40 with cells M3 and M4 texts to the cell L2 previously informed contact.
+
+    Application.Wait (Now + TimeValue("00:00:02"))
+    contato2 = Range("L2").Value
+    texto2 = "Ponderação Lote " & Range("M4").Value & " - " & Range("M3").Value
+    Range("L32:X40").Copy
+    
+    Application.Wait (Now + TimeValue("00:00:02"))
+    Call SendKeys("{TAB}")
+    Application.Wait (Now + TimeValue("00:00:01"))
+    Call SendKeys("{TAB}")
+    Application.Wait (Now + TimeValue("00:00:01"))
+    Call SendKeys("{TAB}")
+    Application.Wait (Now + TimeValue("00:00:01"))
+    Call SendKeys("{TAB}")
+    Application.Wait (Now + TimeValue("00:00:01"))
+    Call SendKeys("{TAB}")
+    Application.Wait (Now + TimeValue("00:00:01"))
+    Call SendKeys(contato2, True)
+    Application.Wait (Now + TimeValue("00:00:01"))
+    Call SendKeys("{ENTER}", True)
+    Application.Wait (Now + TimeValue("00:00:01"))
+    Call SendKeys(texto2, True)
+    Call SendKeys("^v", True)
+    Application.Wait (Now + TimeValue("00:00:01"))
+    Call SendKeys("{ENTER}", True)
+    Application.Wait (Now + TimeValue("00:00:01"))
+    Application.CutCopyMode = False
+    Application.Wait (Now + TimeValue("00:00:01"))
+
+' send cell F18 value
+
+    custo = Range("F18").Value
+    texto3 = "Custo Lote " & Range("M4").Value & " = " & custo
+    Application.Wait (Now + TimeValue("00:00:01"))
+    Call SendKeys(texto3, True)
+    Application.Wait (Now + TimeValue("00:00:01"))
+    Call SendKeys("{ENTER}", True)
+    Application.Wait (Now + TimeValue("00:00:01"))
+    
+    End If
+  
+End Sub
